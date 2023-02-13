@@ -1,0 +1,40 @@
+.gameboard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 16px;
+    margin-top: 32px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.menu {
+    text-align: center;
+}
+
+.square {
+    border: 1px solid black;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+}
+
+#square-1, #square-2, #square-3 {
+    border-top: none;
+}
+
+#square-1, #square-4, #square-7 {
+    border-left: none;
+}
+
+#square-7, #square-8, #square-9 {
+    border-bottom: none;
+}
+
+#square-3, #square-6, #square-9 {
+    border-right: none;
+}
+
