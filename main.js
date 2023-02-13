@@ -1,17 +1,17 @@
 const squares = document.querySelectorAll('.square');
 
 const Gameboard = {
-    gameSquare: ['X','X','X','X','O','X','X','X','X']
+    gameSquare: []
 }
 
 
-const Player = (marker, name) => {
+function Player(marker, name) {
     this.marker = marker;
     this.name = name;
 }
 
-const playerOne = Player('X', 'P1');
-const playerTwo = Player('O', 'P2');
+const playerOne = new Player('X', 'P1');
+const playerTwo = new Player('O', 'P2');
 
 const gameFlow = () => {
     const p1Turn = true;
@@ -25,18 +25,24 @@ const gameFlow = () => {
     const checkPlayer = () => {
 
     }
-    const playTurn = () => {   
-
-    }
     const validatePlay = () => {
 
     }
     const winnerCheck = () => {
 
     }
-    return { displayBoard, checkPlayer, playTurn, validatePlay, winnerCheck }
+    const playTurn = () => {   
+        squares.forEach((box) => {
+            box.addEventListener('click', (e) => {
+                let selectedBox = Number(e.target.id.slice(7));
+                Gameboard.gameSquare[selectedBox - 1] = playerOne.marker;
+                displayBoard(Gameboard.gameSquare);
+            })
+        })
+    }
+    return { checkPlayer, playTurn, validatePlay, winnerCheck, displayBoard }
 };
 
-gameFlow().displayBoard(Gameboard.gameSquare);
+gameFlow().playTurn();
 
 
