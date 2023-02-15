@@ -1,4 +1,7 @@
 const squares = document.querySelectorAll('.square');
+const gameboard = document.querySelector('.gameboard');
+const menu = document.querySelector('.menu');
+const initialLoad = document.querySelector('.initial-load');
 
 const Gameboard = {
     gameSquare: ['', '', '', '', '', '', '', '', '']
@@ -7,13 +10,16 @@ const Gameboard = {
 const getGameSquare = Gameboard.gameSquare;
 
 
-function Player(marker, name) {
-    this.marker = marker;
+function Player(name, marker) {
     this.name = name;
+    this.marker = marker;
 }
 
-const playerOne = new Player('X', 'P1');
-const playerTwo = new Player('O', 'P2');
+let playerOne = ''
+let playerTwo = '';
+
+let p1Icon = '';
+let p2Icon = '';
 
 const gameFlow = () => {
     let currentTurn = 'p1';
@@ -95,5 +101,30 @@ const gameFlow = () => {
 };
 
 gameFlow().playTurn(getGameSquare);
+console.log(p2_name.value)
+
+//need to figure out how to pull value from radio buttons to determine marker symbol for each player
+
+const submitBtn = document.querySelector('.submit');
+submitBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    let btns = document.getElementsByName('icon');
+    function radioCheck() {
+        btns.forEach((button) => {
+            if(button.checked === true) {
+                p1Icon = button.value;
+            } else if (button.checked === false) {
+                p2Icon = button.value;
+            }
+        })
+    }
+    radioCheck();
+    playerOne = new Player(document.getElementById('p1_name').value, p1Icon);
+    playerTwo = new Player(document.getElementById('p2_name').value, p2Icon);
+    console.log(playerOne, playerTwo);
+    initialLoad.classList.add('closeDisplay');
+    gameboard.classList.remove('closeDisplay');
+    menu.classList.remove('closeDisplay');
+})
 
 

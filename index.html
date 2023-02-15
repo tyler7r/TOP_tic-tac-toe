@@ -9,11 +9,25 @@
     <h1>Tic-Tac-Toe</h1>
 </head>
 <body>
-    <div class="menu">
+    <div class="initial-load">
+        <form method="GET">
+            <label for="p1_name">Player 1: </label>
+            <input type="text" id="p1_name" name="p1_name" value="P1" required>
+            <label for="p2_name">Player 2: </label>
+            <input type="text" name="p2_name" id="p2_name" value= "P2" required>
+            <label for="icon-choice">Choose Player 1 Token</label>
+            <label for="X">X</label>
+            <input type="radio" name="icon" id="X" value="X" required>
+            <label for="O">O</label>
+            <input type="radio" name="icon" id="O" value="O" required>
+            <button type='submit' class="submit">Play</button>
+        </form>
+    </div>
+    <div  class="menu closeDisplay">
         <button class="reset">New Game</button>
         <button class="change-mode">Game Mode</button>
     </div>
-    <div class="gameboard">
+    <div class="gameboard closeDisplay">
         <div class="square" id="square-1"></div>
         <div class="square" id="square-2"></div>
         <div class="square" id="square-3"></div>
