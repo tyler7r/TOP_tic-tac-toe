@@ -1,7 +1,7 @@
 const squares = document.querySelectorAll('.square');
 const gameboard = document.querySelector('.gameboard');
-const menu = document.querySelector('.menu');
 const initialLoad = document.querySelector('.initial-load');
+const winnerDisplay = document.querySelector('.winnerDisplay');
 
 const Gameboard = {
     gameSquare: ['', '', '', '', '', '', '', '', '']
@@ -30,6 +30,23 @@ const gameFlow = () => {
 
     let winner = false;
 
+    let emptySquares = [];
+
+    let vsComputer = true;
+
+    const computerPlay = (array) => {
+        for (i = 0; i < array.length; i++) {
+            if (array[i] === '') {
+                emptySquares.push([i]);
+            }
+        } 
+        let randomChoice = emptySquares[Math.floor(Math.random() * emptySquares.length)];
+        array[randomChoice] = playerTwo.marker;
+        console.log(emptySquares, `random choice:${randomChoice}`)
+        displayBoard(array);
+        emptySquares = [];
+    }
+
     const displayBoard = (array) => {
         for (let i = 0; i < array.length; i++) {
             const squareSelect = document.querySelector('#square-' + [i+1]);
@@ -44,7 +61,7 @@ const gameFlow = () => {
         }
     }
     const validatePlay = (e) => {
-        if (e.target.textContent == 'X' || e.target.textContent == 'O') {
+        if (e.target.textContent == playerOne.marker || e.target.textContent == playerTwo.marker) {
             return true
         }
     }
@@ -62,12 +79,11 @@ const gameFlow = () => {
             const p1Win = `${playerOne.marker}${playerOne.marker}${playerOne.marker}`
             const p2Win = `${playerTwo.marker}${playerTwo.marker}${playerTwo.marker}`
             if (winningCombos[key] === p1Win){
-                console.log('1');
                 winner = true;
-                return ('p1 wins');
+                return ('p1');
             } else if (winningCombos[key] === p2Win) {
                 winner = true;
-                return ('p2 wins');
+                return ('p2');
             }
         }
     }
@@ -78,32 +94,73 @@ const gameFlow = () => {
        }
     }
 
+    const resetBoard = (array) => {
+        currentTurn = 'p1';
+        winner = false;
+        for (i = 0; i < array.length; i++) {
+            array[i] = ''
+            displayBoard(array);
+        }
+    }
+
+    const endGameDisplay = (array) => {
+        const congrats = document.querySelector('.congrats');
+        if (winnerCheck(array) === 'p1') {
+         congrats.textContent = `${playerOne.name}(${playerOne.marker}) Wins`;
+        } else if (winnerCheck(array) === 'p2') {
+         congrats.textContent = `${playerTwo.name}(${playerTwo.marker}) Wins`;
+        } else {
+            congrats.textContent = 'TIE'
+        }
+        const playAgain = document.querySelector('.playAgain');
+        playAgain.addEventListener('click', () => {
+            resetBoard(array);
+            winnerDisplay.classList.add('closeDisplay');
+        })
+        const changeSettings = document.querySelector('.changeSettings')
+        changeSettings.addEventListener('click', () => {
+            resetBoard(array);
+            winnerDisplay.classList.add('closeDisplay');
+            initialLoad.classList.remove('closeDisplay');
+            gameboard.classList.add('closeDisplay');
+        })
+     }
+
     const playTurn = (array) => {   
         squares.forEach((box) => {
             box.addEventListener('click', (e) => {
-                console.log(e);
-                checkPlayer();
                 let selectedBox = Number(e.target.id.slice(7));
                 if (validatePlay(e) == true) {
                     return
-                };
-                array[selectedBox - 1] = gamePiece;
-                if (currentTurn === 'p1' ? currentTurn = 'p2' : currentTurn = 'p1'); 
-                displayBoard(array);
+                }
+                if (vsComputer === false && winner === false) {
+                    checkPlayer();
+                    array[selectedBox -1] = gamePiece;
+                    if (currentTurn === 'p1' ? currentTurn = 'p2' : currentTurn = 'p1');
+                    displayBoard(array);
+                } else if (vsComputer === true && winner === false) {
+                    array[selectedBox - 1] = playerOne.marker;
+                    displayBoard(array);
+                    if (winnerCheck(array) !== 'p1') {
+                        computerPlay(array);
+                    };
+                }
                 winnerCheck(array);
-                if(tieCheck()) {
-                    return ('tie');
-                };
+                if (winner || tieCheck()) {
+                    winnerDisplay.classList.remove('closeDisplay');
+                    endGameDisplay(array);
+                }
+                if (winner == true) {
+                    return
+                }
             })
         })
     }
+
     return { playTurn }
 };
 
 gameFlow().playTurn(getGameSquare);
-console.log(p2_name.value)
-
-//need to figure out how to pull value from radio buttons to determine marker symbol for each player
 
 const submitBtn = document.querySelector('.submit');
 submitBtn.addEventListener('click', (e) => {
@@ -124,7 +181,8 @@ submitBtn.addEventListener('click', (e) => {
     console.log(playerOne, playerTwo);
     initialLoad.classList.add('closeDisplay');
     gameboard.classList.remove('closeDisplay');
-    menu.classList.remove('closeDisplay');
 })
+
+
 
 

@@ -20,12 +20,9 @@
             <input type="radio" name="icon" id="X" value="X" required>
             <label for="O">O</label>
             <input type="radio" name="icon" id="O" value="O" required>
+            <button class="change-mode">Game Mode</button>
             <button type='submit' class="submit">Play</button>
         </form>
-    </div>
-    <div  class="menu closeDisplay">
-        <button class="reset">New Game</button>
-        <button class="change-mode">Game Mode</button>
     </div>
     <div class="gameboard closeDisplay">
         <div class="square" id="square-1"></div>
@@ -37,6 +34,11 @@
         <div class="square" id="square-7"></div>
         <div class="square" id="square-8"></div>
         <div class="square" id="square-9"></div>
+    </div>
+    <div class="winnerDisplay closeDisplay">
+        <div class="congrats">Player Z: Wins</div>
+        <button class="playAgain">Play Again</button>
+        <button class="changeSettings">Change Settings</button>
     </div>
 </body>
 </html>
