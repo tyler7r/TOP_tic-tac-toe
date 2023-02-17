@@ -34,6 +34,8 @@ const gameFlow = () => {
 
     let emptySquares = [];
 
+    let vsEasyAI = false;
+
     const easyAI = (array) => {
         for (i = 0; i < array.length; i++) {
             if (array[i] === '') {
@@ -42,59 +44,70 @@ const gameFlow = () => {
         } 
         let randomChoice = emptySquares[Math.floor(Math.random() * emptySquares.length)];
         array[randomChoice] = playerTwo.marker;
-        console.log(emptySquares, `random choice:${randomChoice}`)
         displayBoard(array);
         emptySquares = [];
     }
 
-    const minimax = (array, player) => {
-        emptySquares = array.filter((space) => space == '')
-        if (checkWinner(array) === 'p1') {
-            return {
-                score: -100,
-            }
-        } else if (checkWinner(array) === 'p2') {
-            return {
-                score: 100,
-            }
-        } else if (emptySquares.length === 0) {
-            return {
-                score: 0,
-            }
-        }
-        const potentialMoves = [];
-        for (let i = 0; i < emptySquares.length; i++) {
-            let move = {};
-            move.index = array[emptySquares[i]];
-            array[emptySquares[i]] = player.marker;
-            if (player === 'p2') {
-                move.score = minimax(array, 'p1').score;
-            } else {
-                move.score = minimax(array, 'p2').score;
-            }
-            array[emptySquares[i]] = '';
-            potentialMoves.push(move);
-        }
-        let bestMove = 0;
-        if (player === 'p2') {
-            let bestScore = -10000;
-            for (let i = 0; i < potentialMoves.length; i++) {
-                if (potentialMoves[i].score > bestScore) {
-                    bestScore = potentialMoves[i].score;
-                    bestMove = i;
-                }
-            }
-        } else {
-            let bestScore = 10000;
-            for (let i = 0; i < potentialMoves.length; i++) {
-                if (potentialMoves[i].score < bestScore) {
-                    bestScore = potentialMoves[i].score;
-                    bestMove = i;
-                }
-            }
-        }
-        return potentialMoves[bestMove];
-    }
+    // const hardAI = (array) => {
+    //     setTimeout(() => {
+    //         const move = minimax(array, playerTwo).index;
+    //         array[move] = playerTwo.marker;
+    //         displayBoard(array);
+    //     }, 300)
+    // }
+
+    // const minimax = (array, player) => {
+    //     for (i = 0; i < array.length; i++) {
+    //         if (array[i] === '') {
+    //             emptySquares.push([i]);
+    //         }
+    //     }
+    //     if (winnerCheck(array) === 'p1') {
+    //         return {
+    //             score: -100,
+    //         }
+    //     } else if (winnerCheck(array) === 'p2') {
+    //         return {
+    //             score: 100,
+    //         }
+    //     } else if (emptySquares.length === 0) {
+    //         return {
+    //             score: 0,
+    //         }
+    //     }
+    //     let potentialMoves = [];
+    //     for (let i = 0; i < emptySquares.length; i++) {
+    //         let move = {};
+    //         move.index = array[emptySquares[i]];
+    //         array[emptySquares[i]] = player.marker;
+    //         if (player === playerOne) {
+    //             move.score = minimax(array, playerTwo).score;
+    //         } else {
+    //             move.score = minimax(array, playerOne).score;
+    //         }
+    //         array[emptySquares[i]] = '';
+    //         potentialMoves.push(move);
+    //     }
+    //     let bestMove = 0;
+    //     if (player === playerTwo) {
+    //         let bestScore = -10000;
+    //         for (let i = 0; i < potentialMoves.length; i++) {
+    //             if (potentialMoves[i].score > bestScore) {
+    //                 bestScore = potentialMoves[i].score;
+    //                 bestMove = i;
+    //             }
+    //         }
+    //     } else {
+    //         let bestScore = 10000;
+    //         for (let i = 0; i < potentialMoves.length; i++) {
+    //             if (potentialMoves[i].score < bestScore) {
+    //                 bestScore = potentialMoves[i].score;
+    //                 bestMove = i;
+    //             }
+    //         }
+    //     }
+    //     return potentialMoves[bestMove];
+    // }
 
     const displayBoard = (array) => {
         for (let i = 0; i < array.length; i++) {
@@ -187,7 +200,7 @@ const gameFlow = () => {
                     array[selectedBox -1] = gamePiece;
                     if (currentTurn === 'p1' ? currentTurn = 'p2' : currentTurn = 'p1');
                     displayBoard(array);
-                } else if (vsComputer === true && winner === false) {
+                } else if (vsComputer === true && vsEasyAI === true && winner === false) {
                     array[selectedBox - 1] = playerOne.marker;
                     displayBoard(array);
                     if (winnerCheck(array) !== 'p1') {
@@ -195,7 +208,16 @@ const gameFlow = () => {
                             easyAI(array);
                         }, 300);
                     };
-                }
+                } 
+                // else if (vsComputer === true && vsEasyAI === false && winner === false) {
+                //     array[selectedBox - 1] = playerOne.marker;
+                //     displayBoard(array);
+                //     if (winnerCheck(array) !== 'p1') {
+                //         setTimeout(() => {
+                //             hardAI(array);
+                //         }, 300);
+                //     }
+                // }
                 winnerCheck(array);
                 if (winner || tieCheck()) {
                     winnerDisplay.classList.remove('closeDisplay');
@@ -238,12 +260,20 @@ const modeBtns = document.getElementsByName('gameMode');
 modeBtns.forEach((button) => {
     button.addEventListener('click', (e) => {
         let player2 = document.querySelector('.player2');
-        if (e.target.id === 'easy' || e.target.id === 'hard') {
+        if (e.target.id === 'easy') {
             player2.classList.add('closeDisplay')
             vsComputer = true;
-        } else if (e.target.id === '2P') {
+            vsEasyAI = true;
+        } 
+        // else if (e.target.id === 'hard') {
+        //     player2.classList.add('closeDisplay');
+        //     vsComputer = true;
+        //     vsEasyAI = false;
+        // } 
+        else if (e.target.id === '2P') {
             player2.classList.remove('closeDisplay');
             vsComputer = false;
+            vsEasyAI = false;
         }
     })
 })
