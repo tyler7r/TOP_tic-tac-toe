@@ -34,7 +34,7 @@ const gameFlow = () => {
 
     let emptySquares = [];
 
-    const computerPlay = (array) => {
+    const easyAI = (array) => {
         for (i = 0; i < array.length; i++) {
             if (array[i] === '') {
                 emptySquares.push([i]);
@@ -45,6 +45,55 @@ const gameFlow = () => {
         console.log(emptySquares, `random choice:${randomChoice}`)
         displayBoard(array);
         emptySquares = [];
+    }
+
+    const minimax = (array, player) => {
+        emptySquares = array.filter((space) => space == '')
+        if (checkWinner(array) === 'p1') {
+            return {
+                score: -100,
+            }
+        } else if (checkWinner(array) === 'p2') {
+            return {
+                score: 100,
+            }
+        } else if (emptySquares.length === 0) {
+            return {
+                score: 0,
+            }
+        }
+        const potentialMoves = [];
+        for (let i = 0; i < emptySquares.length; i++) {
+            let move = {};
+            move.index = array[emptySquares[i]];
+            array[emptySquares[i]] = player.marker;
+            if (player === 'p2') {
+                move.score = minimax(array, 'p1').score;
+            } else {
+                move.score = minimax(array, 'p2').score;
+            }
+            array[emptySquares[i]] = '';
+            potentialMoves.push(move);
+        }
+        let bestMove = 0;
+        if (player === 'p2') {
+            let bestScore = -10000;
+            for (let i = 0; i < potentialMoves.length; i++) {
+                if (potentialMoves[i].score > bestScore) {
+                    bestScore = potentialMoves[i].score;
+                    bestMove = i;
+                }
+            }
+        } else {
+            let bestScore = 10000;
+            for (let i = 0; i < potentialMoves.length; i++) {
+                if (potentialMoves[i].score < bestScore) {
+                    bestScore = potentialMoves[i].score;
+                    bestMove = i;
+                }
+            }
+        }
+        return potentialMoves[bestMove];
     }
 
     const displayBoard = (array) => {
@@ -143,7 +192,7 @@ const gameFlow = () => {
                     displayBoard(array);
                     if (winnerCheck(array) !== 'p1') {
                         setTimeout(() => {
-                            computerPlay(array);
+                            easyAI(array);
                         }, 300);
                     };
                 }
