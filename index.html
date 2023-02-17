@@ -11,17 +11,33 @@
 <body>
     <div class="initial-load">
         <form method="GET">
-            <label for="p1_name">Player 1: </label>
-            <input type="text" id="p1_name" name="p1_name" value="P1" required>
-            <label for="p2_name">Player 2: </label>
-            <input type="text" name="p2_name" id="p2_name" value= "P2" required>
-            <label for="icon-choice">Choose Player 1 Token</label>
-            <label for="X">X</label>
-            <input type="radio" name="icon" id="X" value="X" required>
-            <label for="O">O</label>
-            <input type="radio" name="icon" id="O" value="O" required>
-            <button class="change-mode">Game Mode</button>
-            <button type='submit' class="submit">Play</button>
+            <div class="mode-choice">
+                <label for="mode-choice">Choose Game Mode:</label>
+                <input type="radio" name="gameMode" id="2P" checked>
+                <label for="2P">2P</label>
+                <input type="radio" name="gameMode" id="easy">
+                <label for="easy">1P - Easy</label>
+                <input type="radio" name="gameMode" id="hard">
+                <label for="hard">1P - Hard</label>
+            </div>
+            <div class="player-info">
+                <div class="player1">
+                    <label for="p1_name">Player 1: </label>
+                    <input type="text" id="p1_name" name="p1_name" value="P1" required>
+                </div>
+                <div class="player2">
+                    <label for="p2_name">Player 2: </label>
+                    <input type="text" name="p2_name" id="p2_name" value= "P2" required>
+                </div>
+            </div>
+            <div class="icon-choice">
+                <label for="icon-choice">Choose Player 1 Token:</label>
+                <input type="radio" name="icon" id="X" value="X" checked>
+                <label for="X">X</label>
+                <input type="radio" name="icon" id="O" value="O">
+                <label for="O">O</label>
+                <button type='submit' class="submit">Play</button>
+            </div>
         </form>
     </div>
     <div class="gameboard closeDisplay">

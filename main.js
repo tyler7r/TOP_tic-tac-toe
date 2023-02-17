@@ -15,6 +15,8 @@ function Player(name, marker) {
     this.marker = marker;
 }
 
+let vsComputer = false;
+
 let playerOne = ''
 let playerTwo = '';
 
@@ -31,8 +33,6 @@ const gameFlow = () => {
     let winner = false;
 
     let emptySquares = [];
-
-    let vsComputer = true;
 
     const computerPlay = (array) => {
         for (i = 0; i < array.length; i++) {
@@ -142,7 +142,9 @@ const gameFlow = () => {
                     array[selectedBox - 1] = playerOne.marker;
                     displayBoard(array);
                     if (winnerCheck(array) !== 'p1') {
-                        computerPlay(array);
+                        setTimeout(() => {
+                            computerPlay(array);
+                        }, 300);
                     };
                 }
                 winnerCheck(array);
@@ -181,6 +183,20 @@ submitBtn.addEventListener('click', (e) => {
     console.log(playerOne, playerTwo);
     initialLoad.classList.add('closeDisplay');
     gameboard.classList.remove('closeDisplay');
+})
+
+const modeBtns = document.getElementsByName('gameMode');
+modeBtns.forEach((button) => {
+    button.addEventListener('click', (e) => {
+        let player2 = document.querySelector('.player2');
+        if (e.target.id === 'easy' || e.target.id === 'hard') {
+            player2.classList.add('closeDisplay')
+            vsComputer = true;
+        } else if (e.target.id === '2P') {
+            player2.classList.remove('closeDisplay');
+            vsComputer = false;
+        }
+    })
 })
 
 
