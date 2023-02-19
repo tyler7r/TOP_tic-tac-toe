@@ -9,8 +9,7 @@
     <h1>Tic-Tac-Toe</h1>
 </head>
 <body>
-    <div class="initial-load">
-        <form method="GET">
+        <form method="GET" class="form">
             <div class="mode-choice">
                 <label for="mode-choice">Choose Game Mode:</label>
                 <input type="radio" name="gameMode" id="2P" checked>
@@ -36,10 +35,9 @@
                 <label for="X">X</label>
                 <input type="radio" name="icon" id="O" value="O">
                 <label for="O">O</label>
-                <button type='submit' class="submit">Play</button>
             </div>
+            <button type='submit' class="submit">Play</button>
         </form>
-    </div>
     <div class="gameboard closeDisplay">
         <div class="square" id="square-1"></div>
         <div class="square" id="square-2"></div>

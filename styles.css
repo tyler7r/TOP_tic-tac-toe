@@ -1,8 +1,44 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form {
+    width: 60%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    font-size: 24px;
+}
+
+.player-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
 .gameboard {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     margin: 16px;
-    margin-top: 32px;
+    height: 80%;
+    width: 80%;
+    gap: 12px;
+}
+
+.submit {
+    width: 25%;
+    height: 36px;
+    font-weight: bold;
+    font-size: 18px;
 }
 
 h1 {
@@ -11,14 +47,24 @@ h1 {
 
 .square {
     border: 1px solid black;
-    height: 150px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 32px;
+    background-color: rgb(224, 224, 224, 0.6);
+    border-radius: 8px;
 }
 
-#square-1, #square-2, #square-3 {
+.winnerDisplay {
+    display: flex;
+    flex-direction: column;
+    margin: 12px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+/* #square-1, #square-2, #square-3 {
     border-top: none;
 }
 
@@ -32,8 +78,12 @@ h1 {
 
 #square-3, #square-6, #square-9 {
     border-right: none;
-}
+} */
 
 .closeDisplay {
     display: none;
+}
+
+.winnerCombo {
+    background-color: rgb(39, 156, 0, 0.8);
 }

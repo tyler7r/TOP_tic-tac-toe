@@ -1,6 +1,6 @@
 const squares = document.querySelectorAll('.square');
 const gameboard = document.querySelector('.gameboard');
-const initialLoad = document.querySelector('.initial-load');
+const initialLoad = document.querySelector('.form');
 const winnerDisplay = document.querySelector('.winnerDisplay');
 
 const Gameboard = {
@@ -16,6 +16,7 @@ function Player(name, marker) {
 }
 
 let vsComputer = false;
+let vsEasyAI = false;
 
 let playerOne = ''
 let playerTwo = '';
@@ -33,8 +34,6 @@ const gameFlow = () => {
     let winner = false;
 
     let emptySquares = [];
-
-    let vsEasyAI = false;
 
     const easyAI = (array) => {
         for (i = 0; i < array.length; i++) {
@@ -168,11 +167,11 @@ const gameFlow = () => {
     const endGameDisplay = (array) => {
         const congrats = document.querySelector('.congrats');
         if (winnerCheck(array) === 'p1') {
-         congrats.textContent = `${playerOne.name}(${playerOne.marker}) Wins`;
+         congrats.textContent = `${playerOne.name} (${playerOne.marker}) Wins`;
         } else if (winnerCheck(array) === 'p2') {
-         congrats.textContent = `${playerTwo.name}(${playerTwo.marker}) Wins`;
+         congrats.textContent = `${playerTwo.name} (${playerTwo.marker}) Wins`;
         } else {
-            congrats.textContent = 'TIE'
+            congrats.textContent = "It's a TIE"
         }
         const playAgain = document.querySelector('.playAgain');
         playAgain.addEventListener('click', () => {
@@ -206,18 +205,14 @@ const gameFlow = () => {
                     if (winnerCheck(array) !== 'p1') {
                         setTimeout(() => {
                             easyAI(array);
+                            winnerCheck(array);
+                            if (winner || tieCheck()) {
+                                winnerDisplay.classList.remove('closeDisplay');
+                                endGameDisplay(array);
+                            }
                         }, 300);
-                    };
-                } 
-                // else if (vsComputer === true && vsEasyAI === false && winner === false) {
-                //     array[selectedBox - 1] = playerOne.marker;
-                //     displayBoard(array);
-                //     if (winnerCheck(array) !== 'p1') {
-                //         setTimeout(() => {
-                //             hardAI(array);
-                //         }, 300);
-                //     }
-                // }
+                    }
+                }
                 winnerCheck(array);
                 if (winner || tieCheck()) {
                     winnerDisplay.classList.remove('closeDisplay');
@@ -229,7 +224,6 @@ const gameFlow = () => {
             })
         })
     }
-
     return { playTurn }
 };
 
@@ -264,17 +258,16 @@ modeBtns.forEach((button) => {
             player2.classList.add('closeDisplay')
             vsComputer = true;
             vsEasyAI = true;
-        } 
-        // else if (e.target.id === 'hard') {
-        //     player2.classList.add('closeDisplay');
-        //     vsComputer = true;
-        //     vsEasyAI = false;
-        // } 
-        else if (e.target.id === '2P') {
+        } else if (e.target.id === '2P') {
             player2.classList.remove('closeDisplay');
             vsComputer = false;
             vsEasyAI = false;
         }
+        // else if (e.target.id === 'hard') {
+        //     player2.classList.add('closeDisplay');
+        //     vsComputer = true;
+        //     vsEasyAI = false;
+        // }
     })
 })
 
