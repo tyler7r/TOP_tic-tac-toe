@@ -144,18 +144,22 @@ const gameFlow = () => {
                         setTimeout(() => {
                             easyAI(array);
                             winnerCheck(array);
-                            if (winner || tieCheck()) {
-                                winnerDisplay.classList.remove('closeDisplay');
-                                endGameDisplay(array);
-                            }
+                            setTimeout(() => {
+                                if (winner || tieCheck()) {
+                                    winnerDisplay.classList.remove('closeDisplay');
+                                    endGameDisplay(array);
+                                }
+                            }, 300);
                         }, 300);
                     }
                 }
                 winnerCheck(array);
-                if (winner || tieCheck()) {
-                    winnerDisplay.classList.remove('closeDisplay');
-                    endGameDisplay(array);
-                }
+                setTimeout(() => {
+                    if (winner || tieCheck()) {
+                        winnerDisplay.classList.remove('closeDisplay');
+                        endGameDisplay(array);
+                    }
+                }, 300)
                 if (winner == true) {
                     return
                 }
