@@ -46,68 +46,6 @@ const gameFlow = () => {
         displayBoard(array);
         emptySquares = [];
     }
-
-    // const hardAI = (array) => {
-    //     setTimeout(() => {
-    //         const move = minimax(array, playerTwo).index;
-    //         array[move] = playerTwo.marker;
-    //         displayBoard(array);
-    //     }, 300)
-    // }
-
-    // const minimax = (array, player) => {
-    //     for (i = 0; i < array.length; i++) {
-    //         if (array[i] === '') {
-    //             emptySquares.push([i]);
-    //         }
-    //     }
-    //     if (winnerCheck(array) === 'p1') {
-    //         return {
-    //             score: -100,
-    //         }
-    //     } else if (winnerCheck(array) === 'p2') {
-    //         return {
-    //             score: 100,
-    //         }
-    //     } else if (emptySquares.length === 0) {
-    //         return {
-    //             score: 0,
-    //         }
-    //     }
-    //     let potentialMoves = [];
-    //     for (let i = 0; i < emptySquares.length; i++) {
-    //         let move = {};
-    //         move.index = array[emptySquares[i]];
-    //         array[emptySquares[i]] = player.marker;
-    //         if (player === playerOne) {
-    //             move.score = minimax(array, playerTwo).score;
-    //         } else {
-    //             move.score = minimax(array, playerOne).score;
-    //         }
-    //         array[emptySquares[i]] = '';
-    //         potentialMoves.push(move);
-    //     }
-    //     let bestMove = 0;
-    //     if (player === playerTwo) {
-    //         let bestScore = -10000;
-    //         for (let i = 0; i < potentialMoves.length; i++) {
-    //             if (potentialMoves[i].score > bestScore) {
-    //                 bestScore = potentialMoves[i].score;
-    //                 bestMove = i;
-    //             }
-    //         }
-    //     } else {
-    //         let bestScore = 10000;
-    //         for (let i = 0; i < potentialMoves.length; i++) {
-    //             if (potentialMoves[i].score < bestScore) {
-    //                 bestScore = potentialMoves[i].score;
-    //                 bestMove = i;
-    //             }
-    //         }
-    //     }
-    //     return potentialMoves[bestMove];
-    // }
-
     const displayBoard = (array) => {
         for (let i = 0; i < array.length; i++) {
             const squareSelect = document.querySelector('#square-' + [i+1]);
@@ -263,11 +201,6 @@ modeBtns.forEach((button) => {
             vsComputer = false;
             vsEasyAI = false;
         }
-        // else if (e.target.id === 'hard') {
-        //     player2.classList.add('closeDisplay');
-        //     vsComputer = true;
-        //     vsEasyAI = false;
-        // }
     })
 })
 
