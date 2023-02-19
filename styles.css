@@ -29,9 +29,8 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     margin: 16px;
-    height: 80%;
-    width: 80%;
     gap: 12px;
+    width: 80%;
 }
 
 .submit {
@@ -50,9 +49,10 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 32px;
+    font-size: 64px;
     background-color: rgb(224, 224, 224, 0.6);
     border-radius: 8px;
+    height: 150px;
 }
 
 .winnerDisplay {
