@@ -77,10 +77,17 @@ const gameFlow = () => {
         for (let key in winningCombos) {
             const p1Win = `${playerOne.marker}${playerOne.marker}${playerOne.marker}`
             const p2Win = `${playerTwo.marker}${playerTwo.marker}${playerTwo.marker}`
+            let combo = document.querySelectorAll(`.${[key]}`);
             if (winningCombos[key] === p1Win){
                 winner = true;
+                combo.forEach((square) => {
+                    square.classList.add('winnerCombo');
+                })
                 return ('p1');
             } else if (winningCombos[key] === p2Win) {
+                combo.forEach((square) => {
+                    square.classList.add('winnerCombo');
+                })
                 winner = true;
                 return ('p2');
             }
@@ -96,6 +103,9 @@ const gameFlow = () => {
     const resetBoard = (array) => {
         currentTurn = 'p1';
         winner = false;
+        squares.forEach((square) => {
+            square.classList.remove('winnerCombo');
+        })
         for (i = 0; i < array.length; i++) {
             array[i] = ''
         }

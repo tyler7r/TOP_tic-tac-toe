@@ -53,6 +53,8 @@ h1 {
     background-color: rgb(224, 224, 224, 0.6);
     border-radius: 8px;
     height: 150px;
+    width: 150px;
+    transition: background 1s;
 }
 
 .winnerDisplay {
