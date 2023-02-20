@@ -28,7 +28,7 @@ body {
 .gameboard {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    margin: 16px;
+    margin-top: 16px;
     gap: 12px;
     width: 80%;
     max-width: 466px;
@@ -45,10 +45,13 @@ h1 {
     text-align: center;
     max-width: 466px;
     min-width: 316px;
+    font-size: 48px;
+    margin-bottom: 0px;
+    margin-top: 16px;
 }
 
 .square {
-    border: 1px solid black;
+    border: 2px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -69,7 +72,6 @@ h1 {
     justify-content: center;
     align-items: center;
     gap: 8px;
-    border: 3px solid red;
     padding: 4px;
     width: 25%;
     text-align: justify;
@@ -77,26 +79,24 @@ h1 {
     font-weight: bolder;
 }
 
-/* #square-1, #square-2, #square-3 {
-    border-top: none;
-}
-
-#square-1, #square-4, #square-7 {
-    border-left: none;
-}
-
-#square-7, #square-8, #square-9 {
-    border-bottom: none;
-}
-
-#square-3, #square-6, #square-9 {
-    border-right: none;
-} */
-
 .closeDisplay {
     display: none;
 }
 
+.congrats {
+    padding: 3px;
+    font-size: 48px;
+    width: 300px;
+    text-align: center;
+    margin-top: 0px;
+}
+
+.endGameButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
 .winnerCombo {
-    background-color: rgb(39, 156, 0, 0.8);
+    background-color: rgb(39, 156, 0, 0.7);
 }
