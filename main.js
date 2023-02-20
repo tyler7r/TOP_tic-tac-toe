@@ -98,8 +98,8 @@ const gameFlow = () => {
         winner = false;
         for (i = 0; i < array.length; i++) {
             array[i] = ''
-            displayBoard(array);
         }
+        displayBoard(array);
     }
 
     const endGameDisplay = (array) => {

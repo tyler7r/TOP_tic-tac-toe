@@ -49,7 +49,7 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 64px;
+    font-size: 84px;
     background-color: rgb(224, 224, 224, 0.6);
     border-radius: 8px;
     height: 150px;
@@ -62,6 +62,12 @@ h1 {
     justify-content: center;
     align-items: center;
     gap: 8px;
+    border: 3px solid red;
+    padding: 4px;
+    width: 25%;
+    text-align: justify;
+    font-size: 18px;
+    font-weight: bolder;
 }
 
 /* #square-1, #square-2, #square-3 {
